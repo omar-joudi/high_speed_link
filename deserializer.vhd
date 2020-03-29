@@ -38,13 +38,8 @@ architecture arch of deserializer is
 	signal count_f : integer range 0 to 10;
 
 begin
-			
-	data_out <= op_f when (count_r = 10 and count_f = 0) or count_r = 1 or count_r = 3 or count_r = 5 or count_r = 7 or count_r = 9 else
-	            op_r;
-		
-	--process (bit_clk)
 
-	deserialize : process (bit_clk)
+	deser_r : process (bit_clk)
 	begin	
 		if rising_edge(bit_clk)  then
 			reg_r <= data_in & reg_f(9 downto 1);
@@ -54,16 +49,16 @@ begin
 			else 
 				if count_f = 10 then 
 					count_r <= 0;
-					op_r <= reg_f;
+					op_r    <= reg_f;
 				else 
 					count_r <= count_f + 1;
 				end if;
 			end if;
-		end if;
 			
-	end process deserialize;
+		end if;	
+	end process deser_r;
 	
-	deserialize2 : process (bit_clk)
+	deser_f : process (bit_clk)
 	begin	
 		if falling_edge(bit_clk)  then
 			reg_f <= data_in & reg_r(9 downto 1);
@@ -73,13 +68,16 @@ begin
 			else 
 				if count_r = 10 then 
 					count_f <= 0;
-					op_f <= reg_r;
+					op_f    <= reg_r;
 				else 
 					count_f <= count_r + 1;
 				end if;
 			end if;
-		end if;
 			
-	end process deserialize2;
+		end if;	
+	end process deser_f;
+	
+	data_out <= op_f when (count_r = 10 and count_f = 0) or count_r = 1 or count_r = 3 or count_r = 5 or count_r = 7 or count_r = 9 else
+	            op_r;
 	
 end arch;
