@@ -5,7 +5,7 @@
 --GSoC 2020
 --
 --Copyright (C) 2020 Omar Joudi
---Email: s-omarmonzer@zewailcity.edu.eg 
+--Email: s-omarmonzer@zewailcity.edu.eg
 ----------------------------------------------------------------------------
 
 
@@ -16,8 +16,8 @@ use IEEE.numeric_std.ALL;
 
 entity decoding_8b10b is
 	port (
-		data_in      : in std_logic_vector(9 downto 0);
-		op : out std_logic_vector(7 downto 0)
+		data_in : in std_logic_vector(9 downto 0);
+		output  : out std_logic_vector(7 downto 0)
 	);
 end decoding_8b10b;
 
@@ -27,8 +27,8 @@ architecture arch of decoding_8b10b is
 begin
 
 	with data_in select
-		op <= "00000000" when "1001110100" | "0110001011",
-		      "00000001" when "0111010100" | "1000101011",
+		output <= "00000000" when "1001110100" | "0110001011",
+			  "00000001" when "0111010100" | "1000101011",
 			  "00000010" when "1011010100" | "0100101011",
 			  "00000011" when "1100011011" | "1100010100",
 			  "00000100" when "1101010100" | "0010101011",
