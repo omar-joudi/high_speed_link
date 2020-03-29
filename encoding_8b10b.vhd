@@ -21,7 +21,7 @@ entity encoding_8b10b is
 	port (
 		clk          : in std_logic;
 		reset        : in std_logic;
-		data_in    : in std_logic_vector(7 downto 0);
+		data_in      : in std_logic_vector(7 downto 0);
 		data_encoded : out std_logic_vector(9 downto 0)
 	);
 end encoding_8b10b;
@@ -552,12 +552,11 @@ architecture arch of encoding_8b10b is
 		"10100011110",
 		"11000011110",
 		"10101001110"
-	);
+        );
 	
 begin
 	
-	process (clk)
-
+	enc_r : process (clk)
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
@@ -574,10 +573,9 @@ begin
 			end if;
 		end if;
 
-	end process;
+	end process enc_r;
 	
-	process (clk)
-
+	enc_f : process (clk)
 	begin
 		if falling_edge(clk) then
 			if reset = '1' then
@@ -593,10 +591,9 @@ begin
 				end if;
 			end if;
 		end if;
-
-	end process;
+	end process enc_f;
 	
 	data_encoded <= encode_r(9 downto 0) when clk = '1' else
-				encode_f (9 downto 0) when clk = '0';
+				    encode_f (9 downto 0) when clk = '0';
 
 end arch;
