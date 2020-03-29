@@ -5,7 +5,7 @@
 --GSoC 2020
 --
 --Copyright (C) 2020 Omar Joudi
---Email: s-omarmonzer@zewailcity.edu.eg
+--Email: s-omarmonzer@zewailcity.edu.eg 
 ----------------------------------------------------------------------------
 
 
@@ -283,6 +283,6 @@ begin
 			  "11111101" when "1011100001" | "0100011110",
 			  "11111110" when "0111100001" | "1000011110",
 			  "11111111" when "1010110001" | "0101001110",
-			  "00000000" when others;
+			 "00000000" when others;
 
 end arch;
