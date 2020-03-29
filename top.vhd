@@ -66,7 +66,7 @@ begin
 	decoding_8b10b_mod: entity work.decoding_8b10b(arch)
 		port map(
 			data_in => data_out,
-			op     => data_decoded
+			output  => data_decoded
 		);
 		
 end arch;
