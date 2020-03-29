@@ -1,0 +1,2724 @@
+Place & Route TRACE Report
+
+Loading design for application trce from file high_speed_link_impl1.ncd.
+Design name: top
+NCD version: 3.3
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     TQFP100
+Performance: 6
+Loading device for application trce from file 'xo2c1200.nph' in environment: C:/lscc/diamond/3.11_x64/ispfpga.
+Package Status:                     Final          Version 1.42.
+Performance Hardware Data Status:   Final          Version 34.4.
+Setup and Hold Report
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Setup, Version Diamond (64-bit) 3.11.2.446
+Sun Mar 29 20:34:59 2020
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2019 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 6 -sphld m -o high_speed_link_impl1.twr -gui -msgset C:/lscc/diamond/3.11_x64/bin/nt64/promote.xml high_speed_link_impl1.ncd high_speed_link_impl1.prf 
+Design file:     high_speed_link_impl1.ncd
+Preference file: high_speed_link_impl1.prf
+Device,speed:    LCMXO2-1200HC,6
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+Preference Summary
+
+FREQUENCY NET "clk_c" 25.000000 MHz (8 errors)
+
+            50 items scored, 8 timing errors detected.
+Warning:  12.012MHz is the maximum frequency for this preference.
+
+FREQUENCY NET "bit_clk" 275.000000 MHz (454 errors)
+
+            548 items scored, 454 timing errors detected.
+Warning: 102.817MHz is the maximum frequency for this preference.
+
+FREQUENCY NET "pll_mod/CLKOS" 275.000000 MHz (0 errors)
+            0 items scored, 0 timing errors detected.
+
+FREQUENCY PORT "clk" 25.000000 MHz (0 errors)
+            0 items scored, 0 timing errors detected.
+Report:  150.150MHz is the maximum frequency for this preference.
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Preference: FREQUENCY NET "clk_c" 25.000000 MHz ;
+            50 items scored, 8 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Error: The following path exceeds requirements by 1.970ns (weighted slack = -43.249ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_f[1]  (from bit_clk -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.353ns  (59.4% logic, 40.6% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.353ns physical path delay serializer_mod/SLICE_51 to encoding_8b10b_mod/SLICE_48 exceeds
+      1.822ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 1.383ns) by 1.970ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_51 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C11C.CLK to     R10C11C.Q1 serializer_mod/SLICE_51 (from bit_clk)
+ROUTE         8     0.861     R10C11C.Q1 to      R8C11B.C1 serializer_mod/count_f[1]
+CTOOFX_DEL  ---     0.601      R8C11B.C1 to    R8C11B.OFX0 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX0 to     R8C11A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C11A.FXA to    R8C11A.OFX1 encoding_8b10b_mod/SLICE_451
+ROUTE         1     0.000    R8C11A.OFX1 to     R8C11B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_f5b
+FXTOOFX_DE  ---     0.205     R8C11B.FXB to    R8C11B.OFX1 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX1 to     R8C10D.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10D.FXA to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.353   (59.4% logic, 40.6% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 1.902ns (weighted slack = -41.756ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_f[3]  (from bit_clk -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.285ns  (60.6% logic, 39.4% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.285ns physical path delay serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48 exceeds
+      1.822ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 1.383ns) by 1.902ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13C.CLK to      R8C13C.Q1 serializer_mod/SLICE_52 (from bit_clk)
+ROUTE         6     0.793      R8C13C.Q1 to      R8C11B.A1 serializer_mod/count_f[3]
+CTOOFX_DEL  ---     0.601      R8C11B.A1 to    R8C11B.OFX0 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX0 to     R8C11A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C11A.FXA to    R8C11A.OFX1 encoding_8b10b_mod/SLICE_451
+ROUTE         1     0.000    R8C11A.OFX1 to     R8C11B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_f5b
+FXTOOFX_DE  ---     0.205     R8C11B.FXB to    R8C11B.OFX1 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX1 to     R8C10D.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10D.FXA to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.285   (60.6% logic, 39.4% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_52:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to     R8C13C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 1.862ns (weighted slack = -40.878ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_f[2]  (from bit_clk -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.245ns  (61.4% logic, 38.6% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.245ns physical path delay serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48 exceeds
+      1.822ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 1.383ns) by 1.862ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13C.CLK to      R8C13C.Q0 serializer_mod/SLICE_52 (from bit_clk)
+ROUTE         6     0.753      R8C13C.Q0 to      R8C11B.D1 serializer_mod/count_f[2]
+CTOOFX_DEL  ---     0.601      R8C11B.D1 to    R8C11B.OFX0 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX0 to     R8C11A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C11A.FXA to    R8C11A.OFX1 encoding_8b10b_mod/SLICE_451
+ROUTE         1     0.000    R8C11A.OFX1 to     R8C11B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_f5b
+FXTOOFX_DE  ---     0.205     R8C11B.FXB to    R8C11B.OFX1 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX1 to     R8C10D.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10D.FXA to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.245   (61.4% logic, 38.6% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_52:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to     R8C13C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 0.909ns (weighted slack = -9.989ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_r[3]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               4.110ns  (48.4% logic, 51.6% route), 6 logic levels.
+
+ Constraint Details:
+
+      4.110ns physical path delay serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48 exceeds
+      3.640ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 3.201ns) by 0.909ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C13B.CLK to     R10C13B.Q1 serializer_mod/SLICE_54 (from bit_clk)
+ROUTE         6     1.618     R10C13B.Q1 to      R8C10D.C1 serializer_mod/count_r[3]
+CTOOFX_DEL  ---     0.601      R8C10D.C1 to    R8C10D.OFX0 SLICE_452
+ROUTE         1     0.000    R8C10D.OFX0 to     R8C10C.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10C.FXA to    R8C10C.OFX1 encoding_8b10b_mod/SLICE_453
+ROUTE         1     0.000    R8C10C.OFX1 to     R8C10B.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10B.FXA to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    4.110   (48.4% logic, 51.6% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 0.797ns (weighted slack = -8.758ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_r[2]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.998ns  (49.8% logic, 50.2% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.998ns physical path delay serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48 exceeds
+      3.640ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 3.201ns) by 0.797ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C13B.CLK to     R10C13B.Q0 serializer_mod/SLICE_54 (from bit_clk)
+ROUTE         6     1.506     R10C13B.Q0 to      R8C10D.B1 serializer_mod/count_r[2]
+CTOOFX_DEL  ---     0.601      R8C10D.B1 to    R8C10D.OFX0 SLICE_452
+ROUTE         1     0.000    R8C10D.OFX0 to     R8C10C.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10C.FXA to    R8C10C.OFX1 encoding_8b10b_mod/SLICE_453
+ROUTE         1     0.000    R8C10C.OFX1 to     R8C10B.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10B.FXA to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.998   (49.8% logic, 50.2% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 0.709ns (weighted slack = -7.791ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/count_r[2]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.910ns  (50.9% logic, 49.1% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.910ns physical path delay deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48 exceeds
+      3.640ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 3.201ns) by 0.709ns
+
+ Physical Path Details:
+
+      Data path deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C16C.CLK to     R10C16C.Q0 deserializer_mod/SLICE_7 (from bit_clk)
+ROUTE         7     1.418     R10C16C.Q0 to      R8C10B.A1 deserializer_mod/count_r[2]
+CTOOFX_DEL  ---     0.601      R8C10B.A1 to    R8C10B.OFX0 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX0 to     R8C10A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10A.FXA to    R8C10A.OFX1 encoding_8b10b_mod/SLICE_455
+ROUTE         1     0.000    R8C10A.OFX1 to     R8C10B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10B.FXB to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.910   (50.9% logic, 49.1% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C16C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 0.498ns (weighted slack = -5.473ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_r[1]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.699ns  (53.8% logic, 46.2% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.699ns physical path delay serializer_mod/SLICE_53 to encoding_8b10b_mod/SLICE_48 exceeds
+      3.640ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 3.201ns) by 0.498ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_53 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C13C.CLK to     R10C13C.Q1 serializer_mod/SLICE_53 (from bit_clk)
+ROUTE         8     1.207     R10C13C.Q1 to      R8C10D.D1 serializer_mod/count_r[1]
+CTOOFX_DEL  ---     0.601      R8C10D.D1 to    R8C10D.OFX0 SLICE_452
+ROUTE         1     0.000    R8C10D.OFX0 to     R8C10C.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10C.FXA to    R8C10C.OFX1 encoding_8b10b_mod/SLICE_453
+ROUTE         1     0.000    R8C10C.OFX1 to     R8C10B.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10B.FXA to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.699   (53.8% logic, 46.2% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C13C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 0.187ns (weighted slack = -2.055ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/count_r[3]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               3.388ns  (58.8% logic, 41.2% route), 6 logic levels.
+
+ Constraint Details:
+
+      3.388ns physical path delay deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48 exceeds
+      3.640ns delay constraint less
+      1.076ns skew and
+     -0.770ns feedback compensation and
+      0.133ns DIN_SET requirement (totaling 3.201ns) by 0.187ns
+
+ Physical Path Details:
+
+      Data path deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C16C.CLK to     R10C16C.Q1 deserializer_mod/SLICE_7 (from bit_clk)
+ROUTE         7     0.896     R10C16C.Q1 to      R8C10B.D1 deserializer_mod/count_r[3]
+CTOOFX_DEL  ---     0.601      R8C10B.D1 to    R8C10B.OFX0 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX0 to     R8C10A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_0_f5a
+FXTOOFX_DE  ---     0.205     R8C10A.FXA to    R8C10A.OFX1 encoding_8b10b_mod/SLICE_455
+ROUTE         1     0.000    R8C10A.OFX1 to     R8C10B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10B.FXB to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.205     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.501    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.408      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    3.388   (58.8% logic, 41.2% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C16C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 16.955ns (weighted slack = 33.910ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_f[3]  (from clk_c -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[9]  (to clk_c +)
+
+   Delay:               2.912ns  (54.3% logic, 45.7% route), 4 logic levels.
+
+ Constraint Details:
+
+      2.912ns physical path delay encoding_8b10b_mod/SLICE_37 to encoding_8b10b_mod/SLICE_47 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.133ns DIN_SET requirement (totaling 19.867ns) by 16.955ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_37 to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C10C.CLK to     R10C10C.Q0 encoding_8b10b_mod/SLICE_37 (from clk_c)
+ROUTE         1     0.481     R10C10C.Q0 to     R10C10A.D1 encoding_8b10b_mod/encode_f[3]
+CTOOFX_DEL  ---     0.601     R10C10A.D1 to   R10C10A.OFX0 encoding_8b10b_mod/SLICE_447
+ROUTE         1     0.000   R10C10A.OFX0 to    R10C10A.FXB encoding_8b10b_mod/enc_r.encode_r_2256_9_1_f5b
+FXTOOFX_DE  ---     0.205    R10C10A.FXB to   R10C10A.OFX1 encoding_8b10b_mod/SLICE_447
+ROUTE         1     0.850   R10C10A.OFX1 to      R9C12B.C1 encoding_8b10b_mod/encode_r_2256_9
+CTOF_DEL    ---     0.408      R9C12B.C1 to      R9C12B.F1 encoding_8b10b_mod/SLICE_47
+ROUTE         1     0.000      R9C12B.F1 to     R9C12B.DI1 encoding_8b10b_mod/encode_r_2[9] (to clk_c)
+                  --------
+                    2.912   (54.3% logic, 45.7% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_37:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     1.807       34.PADDI to    R10C10C.CLK clk_c
+                  --------
+                    1.807   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     1.807       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    1.807   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 17.016ns (weighted slack = 34.032ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/linked_r  (from clk_c +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_f[9]  (to clk_c -)
+                   FF                        encoding_8b10b_mod/encode_f[8]
+
+   Delay:               2.756ns  (28.1% logic, 71.9% route), 2 logic levels.
+
+ Constraint Details:
+
+      2.756ns physical path delay encoding_8b10b_mod/SLICE_133 to encoding_8b10b_mod/SLICE_40 meets
+     20.000ns delay constraint less
+      0.000ns skew and
+      0.228ns LSR_SET requirement (totaling 19.772ns) by 17.016ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_133 to encoding_8b10b_mod/SLICE_40:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R7C13C.CLK to      R7C13C.Q0 encoding_8b10b_mod/SLICE_133 (from clk_c)
+ROUTE         6     0.793      R7C13C.Q0 to      R8C13A.A1 encoding_8b10b_mod/linked_r
+CTOF_DEL    ---     0.408      R8C13A.A1 to      R8C13A.F1 encoding_8b10b_mod/SLICE_39
+ROUTE         4     1.188      R8C13A.F1 to     R9C11A.LSR encoding_8b10b_mod/linked_r_RNIFBAN (to clk_c)
+                  --------
+                    2.756   (28.1% logic, 71.9% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_133:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     1.807       34.PADDI to     R7C13C.CLK clk_c
+                  --------
+                    1.807   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_40:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     1.807       34.PADDI to     R9C11A.CLK clk_c
+                  --------
+                    1.807   (0.0% logic, 100.0% route), 0 logic levels.
+
+Warning:  12.012MHz is the maximum frequency for this preference.
+
+
+================================================================================
+Preference: FREQUENCY NET "bit_clk" 275.000000 MHz ;
+            548 items scored, 454 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Error: The following path exceeds requirements by 3.045ns (weighted slack = -6.090ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/reg_r[8]  (from bit_clk +)
+   Destination:    FF         Data in        deserializer_mod/count_f[1]  (to bit_clk -)
+
+   Delay:               4.730ns  (33.6% logic, 66.4% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.730ns physical path delay SLICE_515 to deserializer_mod/SLICE_4 exceeds
+      1.818ns delay constraint less
+      0.000ns skew and
+      0.133ns DIN_SET requirement (totaling 1.685ns) by 3.045ns
+
+ Physical Path Details:
+
+      Data path SLICE_515 to deserializer_mod/SLICE_4:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C13D.CLK to     R10C13D.Q0 SLICE_515 (from bit_clk)
+ROUTE         5     1.549     R10C13D.Q0 to     R10C14B.D0 deserializer_mod/reg_r[8]
+CTOF_DEL    ---     0.408     R10C14B.D0 to     R10C14B.F0 deserializer_mod/SLICE_495
+ROUTE         1     0.785     R10C14B.F0 to     R10C14B.B1 deserializer_mod/un10_reg_r_6
+CTOF_DEL    ---     0.408     R10C14B.B1 to     R10C14B.F1 deserializer_mod/SLICE_495
+ROUTE         1     0.805     R10C14B.F1 to     R10C16B.B1 deserializer_mod/un10_reg_r
+CTOF_DEL    ---     0.408     R10C16B.B1 to     R10C16B.F1 deserializer_mod/SLICE_4
+ROUTE         1     0.000     R10C16B.F1 to    R10C16B.DI1 deserializer_mod/count_fd_0[1] (to bit_clk)
+                  --------
+                    4.730   (33.6% logic, 66.4% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_mod/PLLInst_0 to SLICE_515:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to    R10C13D.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_mod/PLLInst_0 to deserializer_mod/SLICE_4:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to    R10C16B.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Error: The following path exceeds requirements by 3.039ns (weighted slack = -6.078ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/reg_f_fast[7]  (from bit_clk -)
+   Destination:    FF         Data in        deserializer_mod/count_r[3]  (to bit_clk +)
+
+   Delay:               4.724ns  (33.7% logic, 66.3% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.724ns physical path delay SLICE_482 to deserializer_mod/SLICE_7 exceeds
+      1.818ns delay constraint less
+      0.000ns skew and
+      0.133ns DIN_SET requirement (totaling 1.685ns) by 3.039ns
+
+ Physical Path Details:
+
+      Data path SLICE_482 to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C17D.CLK to      R8C17D.Q1 SLICE_482 (from bit_clk)
+ROUTE         3     1.760      R8C17D.Q1 to     R10C17D.A1 deserializer_mod/reg_f_fast[7]
+CTOF_DEL    ---     0.408     R10C17D.A1 to     R10C17D.F1 deserializer_mod/SLICE_509
+ROUTE         1     0.590     R10C17D.F1 to     R10C17A.C1 deserializer_mod/reg_f_sx
+CTOF_DEL    ---     0.408     R10C17A.C1 to     R10C17A.F1 deserializer_mod/SLICE_496
+ROUTE         1     0.783     R10C17A.F1 to     R10C16C.B1 deserializer_mod/reg_f
+CTOF_DEL    ---     0.408     R10C16C.B1 to     R10C16C.F1 deserializer_mod/SLICE_7
+ROUTE         1     0.000     R10C16C.F1 to    R10C16C.DI1 deserializer_mod/count_rd_0[3] (to bit_clk)
+                  --------
+                    4.724   (33.7% logic, 66.3% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_mod/PLLInst_0 to SLICE_482:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to     R8C17D.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_mod/PLLInst_0 to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to    R10C16C.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Error: The following path exceeds requirements by 2.890ns (weighted slack = -5.780ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[9]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_f[1]  (to bit_clk -)
+                   FF                        serializer_mod/count_f[0]
+
+   Delay:               4.786ns  (33.2% logic, 66.8% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.786ns physical path delay encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_51 exceeds
+      1.818ns delay constraint less
+     -1.076ns skew and
+      0.770ns feedback compensation and
+      0.228ns LSR_SET requirement (totaling 1.896ns) by 2.890ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R9C12B.CLK to      R9C12B.Q1 encoding_8b10b_mod/SLICE_47 (from clk_c)
+ROUTE         1     0.805      R9C12B.Q1 to      R9C13C.B1 encoding_8b10b_mod/encode_r[9]
+CTOF_DEL    ---     0.408      R9C13C.B1 to      R9C13C.F1 SLICE_501
+ROUTE         3     0.769      R9C13C.F1 to      R9C13C.A0 data_encoded[9]
+CTOF_DEL    ---     0.408      R9C13C.A0 to      R9C13C.F0 SLICE_501
+ROUTE         1     0.781      R9C13C.F0 to     R10C13A.A0 serializer_mod/un1_data_in_6
+CTOF_DEL    ---     0.408     R10C13A.A0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.840     R10C13A.F0 to    R10C11C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    4.786   (33.2% logic, 66.8% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 2.824ns (weighted slack = -5.648ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[9]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_f[3]  (to bit_clk -)
+                   FF                        serializer_mod/count_f[2]
+
+   Delay:               4.720ns  (33.7% logic, 66.3% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.720ns physical path delay encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_52 exceeds
+      1.818ns delay constraint less
+     -1.076ns skew and
+      0.770ns feedback compensation and
+      0.228ns LSR_SET requirement (totaling 1.896ns) by 2.824ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_52:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R9C12B.CLK to      R9C12B.Q1 encoding_8b10b_mod/SLICE_47 (from clk_c)
+ROUTE         1     0.805      R9C12B.Q1 to      R9C13C.B1 encoding_8b10b_mod/encode_r[9]
+CTOF_DEL    ---     0.408      R9C13C.B1 to      R9C13C.F1 SLICE_501
+ROUTE         3     0.769      R9C13C.F1 to      R9C13C.A0 data_encoded[9]
+CTOF_DEL    ---     0.408      R9C13C.A0 to      R9C13C.F0 SLICE_501
+ROUTE         1     0.781      R9C13C.F0 to     R10C13A.A0 serializer_mod/un1_data_in_6
+CTOF_DEL    ---     0.408     R10C13A.A0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.774     R10C13A.F0 to     R8C13C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    4.720   (33.7% logic, 66.3% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_52:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to     R8C13C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 2.812ns (weighted slack = -5.624ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/reg_r[9]  (from bit_clk +)
+   Destination:    FF         Data in        deserializer_mod/count_f[1]  (to bit_clk -)
+
+   Delay:               4.497ns  (35.4% logic, 64.6% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.497ns physical path delay SLICE_515 to deserializer_mod/SLICE_4 exceeds
+      1.818ns delay constraint less
+      0.000ns skew and
+      0.133ns DIN_SET requirement (totaling 1.685ns) by 2.812ns
+
+ Physical Path Details:
+
+      Data path SLICE_515 to deserializer_mod/SLICE_4:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367    R10C13D.CLK to     R10C13D.Q1 SLICE_515 (from bit_clk)
+ROUTE         5     1.316     R10C13D.Q1 to     R10C14B.C0 deserializer_mod/reg_r[9]
+CTOF_DEL    ---     0.408     R10C14B.C0 to     R10C14B.F0 deserializer_mod/SLICE_495
+ROUTE         1     0.785     R10C14B.F0 to     R10C14B.B1 deserializer_mod/un10_reg_r_6
+CTOF_DEL    ---     0.408     R10C14B.B1 to     R10C14B.F1 deserializer_mod/SLICE_495
+ROUTE         1     0.805     R10C14B.F1 to     R10C16B.B1 deserializer_mod/un10_reg_r
+CTOF_DEL    ---     0.408     R10C16B.B1 to     R10C16B.F1 deserializer_mod/SLICE_4
+ROUTE         1     0.000     R10C16B.F1 to    R10C16B.DI1 deserializer_mod/count_fd_0[1] (to bit_clk)
+                  --------
+                    4.497   (35.4% logic, 64.6% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_mod/PLLInst_0 to SLICE_515:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to    R10C13D.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_mod/PLLInst_0 to deserializer_mod/SLICE_4:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to    R10C16B.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Error: The following path exceeds requirements by 2.746ns (weighted slack = -5.492ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/reg_f[3]  (from bit_clk -)
+   Destination:    FF         Data in        deserializer_mod/count_r[3]  (to bit_clk +)
+
+   Delay:               4.431ns  (35.9% logic, 64.1% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.431ns physical path delay deserializer_mod/SLICE_141 to deserializer_mod/SLICE_7 exceeds
+      1.818ns delay constraint less
+      0.000ns skew and
+      0.133ns DIN_SET requirement (totaling 1.685ns) by 2.746ns
+
+ Physical Path Details:
+
+      Data path deserializer_mod/SLICE_141 to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C16C.CLK to      R8C16C.Q0 deserializer_mod/SLICE_141 (from bit_clk)
+ROUTE         4     1.535      R8C16C.Q0 to     R10C17A.A0 deserializer_mod/reg_f[3]
+CTOF_DEL    ---     0.408     R10C17A.A0 to     R10C17A.F0 deserializer_mod/SLICE_496
+ROUTE         1     0.522     R10C17A.F0 to     R10C17A.A1 deserializer_mod/reg_f_6
+CTOF_DEL    ---     0.408     R10C17A.A1 to     R10C17A.F1 deserializer_mod/SLICE_496
+ROUTE         1     0.783     R10C17A.F1 to     R10C16C.B1 deserializer_mod/reg_f
+CTOF_DEL    ---     0.408     R10C16C.B1 to     R10C16C.F1 deserializer_mod/SLICE_7
+ROUTE         1     0.000     R10C16C.F1 to    R10C16C.DI1 deserializer_mod/count_rd_0[3] (to bit_clk)
+                  --------
+                    4.431   (35.9% logic, 64.1% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path pll_mod/PLLInst_0 to deserializer_mod/SLICE_141:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to     R8C16C.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path pll_mod/PLLInst_0 to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        44     1.345     LPLL.CLKOP to    R10C16C.CLK bit_clk
+                  --------
+                    1.345   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Error: The following path exceeds requirements by 2.728ns (weighted slack = -5.456ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[5]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_f[1]  (to bit_clk -)
+                   FF                        serializer_mod/count_f[0]
+
+   Delay:               4.624ns  (34.4% logic, 65.6% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.624ns physical path delay encoding_8b10b_mod/SLICE_45 to serializer_mod/SLICE_51 exceeds
+      1.818ns delay constraint less
+     -1.076ns skew and
+      0.770ns feedback compensation and
+      0.228ns LSR_SET requirement (totaling 1.896ns) by 2.728ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_45 to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C12A.CLK to      R8C12A.Q0 encoding_8b10b_mod/SLICE_45 (from clk_c)
+ROUTE         1     0.805      R8C12A.Q0 to     R10C12B.B1 encoding_8b10b_mod/encode_r[5]
+CTOF_DEL    ---     0.408     R10C12B.B1 to     R10C12B.F1 SLICE_500
+ROUTE         3     0.800     R10C12B.F1 to     R10C12B.B0 data_encoded[5]
+CTOF_DEL    ---     0.408     R10C12B.B0 to     R10C12B.F0 SLICE_500
+ROUTE         1     0.588     R10C12B.F0 to     R10C13A.C0 serializer_mod/un1_data_in_5
+CTOF_DEL    ---     0.408     R10C13A.C0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.840     R10C13A.F0 to    R10C11C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    4.624   (34.4% logic, 65.6% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_45:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12A.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 2.702ns (weighted slack = -5.404ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[0]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_f[1]  (to bit_clk -)
+                   FF                        serializer_mod/count_f[0]
+
+   Delay:               4.598ns  (34.6% logic, 65.4% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.598ns physical path delay encoding_8b10b_mod/SLICE_42 to serializer_mod/SLICE_51 exceeds
+      1.818ns delay constraint less
+     -1.076ns skew and
+      0.770ns feedback compensation and
+      0.228ns LSR_SET requirement (totaling 1.896ns) by 2.702ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_42 to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R9C13A.CLK to      R9C13A.Q0 encoding_8b10b_mod/SLICE_42 (from clk_c)
+ROUTE         1     0.588      R9C13A.Q0 to      R9C12C.C0 encoding_8b10b_mod/encode_r[0]
+CTOF_DEL    ---     0.408      R9C12C.C0 to      R9C12C.F0 SLICE_514
+ROUTE         3     0.798      R9C12C.F0 to      R9C13C.B0 data_encoded[0]
+CTOF_DEL    ---     0.408      R9C13C.B0 to      R9C13C.F0 SLICE_501
+ROUTE         1     0.781      R9C13C.F0 to     R10C13A.A0 serializer_mod/un1_data_in_6
+CTOF_DEL    ---     0.408     R10C13A.A0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.840     R10C13A.F0 to    R10C11C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    4.598   (34.6% logic, 65.4% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_42:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R9C13A.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 2.686ns (weighted slack = -5.372ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[2]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_f[1]  (to bit_clk -)
+                   FF                        serializer_mod/count_f[0]
+
+   Delay:               4.582ns  (34.7% logic, 65.3% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.582ns physical path delay encoding_8b10b_mod/SLICE_43 to serializer_mod/SLICE_51 exceeds
+      1.818ns delay constraint less
+     -1.076ns skew and
+      0.770ns feedback compensation and
+      0.228ns LSR_SET requirement (totaling 1.896ns) by 2.686ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_43 to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C12C.CLK to      R8C12C.Q0 encoding_8b10b_mod/SLICE_43 (from clk_c)
+ROUTE         1     0.781      R8C12C.Q0 to     R10C12A.A0 encoding_8b10b_mod/encode_r[2]
+CTOF_DEL    ---     0.408     R10C12A.A0 to     R10C12A.F0 SLICE_516
+ROUTE         3     0.782     R10C12A.F0 to     R10C12B.A0 data_encoded[2]
+CTOF_DEL    ---     0.408     R10C12B.A0 to     R10C12B.F0 SLICE_500
+ROUTE         1     0.588     R10C12B.F0 to     R10C13A.C0 serializer_mod/un1_data_in_5
+CTOF_DEL    ---     0.408     R10C13A.C0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.840     R10C13A.F0 to    R10C11C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    4.582   (34.7% logic, 65.3% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_43:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R8C12C.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Error: The following path exceeds requirements by 2.680ns (weighted slack = -5.360ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[8]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_f[1]  (to bit_clk -)
+                   FF                        serializer_mod/count_f[0]
+
+   Delay:               4.576ns  (34.8% logic, 65.2% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.576ns physical path delay encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_51 exceeds
+      1.818ns delay constraint less
+     -1.076ns skew and
+      0.770ns feedback compensation and
+      0.228ns LSR_SET requirement (totaling 1.896ns) by 2.680ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R9C12B.CLK to      R9C12B.Q0 encoding_8b10b_mod/SLICE_47 (from clk_c)
+ROUTE         1     0.761      R9C12B.Q0 to      R9C12C.A1 encoding_8b10b_mod/encode_r[8]
+CTOF_DEL    ---     0.408      R9C12C.A1 to      R9C12C.F1 SLICE_514
+ROUTE         3     0.603      R9C12C.F1 to      R9C13C.C0 data_encoded[8]
+CTOF_DEL    ---     0.408      R9C13C.C0 to      R9C13C.F0 SLICE_501
+ROUTE         1     0.781      R9C13C.F0 to     R10C13A.A0 serializer_mod/un1_data_in_6
+CTOF_DEL    ---     0.408     R10C13A.A0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.840     R10C13A.F0 to    R10C11C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    4.576   (34.8% logic, 65.2% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     1.807       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    3.179   (43.2% logic, 56.8% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     1.372         34.PAD to       34.PADDI clk
+ROUTE        27     0.629       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     1.345     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    4.255   (53.6% logic, 46.4% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.770     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 1 logic levels.
+
+Warning: 102.817MHz is the maximum frequency for this preference.
+
+
+================================================================================
+Preference: FREQUENCY NET "pll_mod/CLKOS" 275.000000 MHz ;
+            0 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+================================================================================
+Preference: FREQUENCY PORT "clk" 25.000000 MHz ;
+            0 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Passed:  The following path meets requirements by 33.340ns
+         The internal maximum frequency of the following component is 150.150 MHz
+
+ Logical Details:  Cell type  Pin name       Component name
+
+   Destination:    PIO        PAD            clk
+
+   Delay:               6.660ns -- based on Minimum Pulse Width
+
+Report:  150.150MHz is the maximum frequency for this preference.
+
+Report Summary
+--------------
+----------------------------------------------------------------------------
+Preference                              |   Constraint|       Actual|Levels
+----------------------------------------------------------------------------
+                                        |             |             |
+FREQUENCY NET "clk_c" 25.000000 MHz ;   |   25.000 MHz|   12.012 MHz|   6 *
+                                        |             |             |
+FREQUENCY NET "bit_clk" 275.000000 MHz  |             |             |
+;                                       |  275.000 MHz|  102.817 MHz|   4 *
+                                        |             |             |
+FREQUENCY NET "pll_mod/CLKOS"           |             |             |
+275.000000 MHz ;                        |            -|            -|   0  
+                                        |             |             |
+FREQUENCY PORT "clk" 25.000000 MHz ;    |   25.000 MHz|  150.150 MHz|   0  
+                                        |             |             |
+----------------------------------------------------------------------------
+
+
+2 preferences(marked by "*" above) not met.
+
+----------------------------------------------------------------------------
+Critical Nets                           |   Loads|  Errors| % of total
+----------------------------------------------------------------------------
+serializer_mod/un1_data_in              |       4|      70|     15.15%
+                                        |        |        |
+deserializer_mod/un10_reg_r_i           |       6|      60|     12.99%
+                                        |        |        |
+deserializer_mod/reg_f_i                |       6|      60|     12.99%
+                                        |        |        |
+----------------------------------------------------------------------------
+
+
+Clock Domains Analysis
+------------------------
+
+Found 3 clocks:
+
+Clock Domain: pll_mod/CLKOS   Source: pll_mod/PLLInst_0.CLKOS   Loads: 1
+   No transfer within this clock domain is found
+
+Clock Domain: clk_c   Source: clk.PAD   Loads: 27
+   Covered under: FREQUENCY NET "clk_c" 25.000000 MHz ;
+
+   Data transfers from:
+   Clock Domain: bit_clk   Source: pll_mod/PLLInst_0.CLKOP
+      Covered under: FREQUENCY NET "clk_c" 25.000000 MHz ;   Transfers: 8
+
+Clock Domain: bit_clk   Source: pll_mod/PLLInst_0.CLKOP   Loads: 44
+   Covered under: FREQUENCY NET "bit_clk" 275.000000 MHz ;
+
+   Data transfers from:
+   Clock Domain: clk_c   Source: clk.PAD
+      Covered under: FREQUENCY NET "bit_clk" 275.000000 MHz ;   Transfers: 40
+
+
+Timing summary (Setup):
+---------------
+
+Timing errors: 462  Score: 1339184
+Cumulative negative slack: 889900
+
+Constraints cover 598 paths, 30 nets, and 606 connections (13.94% coverage)
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Hold, Version Diamond (64-bit) 3.11.2.446
+Sun Mar 29 20:34:59 2020
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2019 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 6 -sphld m -o high_speed_link_impl1.twr -gui -msgset C:/lscc/diamond/3.11_x64/bin/nt64/promote.xml high_speed_link_impl1.ncd high_speed_link_impl1.prf 
+Design file:     high_speed_link_impl1.ncd
+Preference file: high_speed_link_impl1.prf
+Device,speed:    LCMXO2-1200HC,m
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+Preference Summary
+
+FREQUENCY NET "clk_c" 25.000000 MHz (0 errors)
+            50 items scored, 0 timing errors detected.
+
+FREQUENCY NET "bit_clk" 275.000000 MHz (0 errors)
+            548 items scored, 0 timing errors detected.
+
+FREQUENCY NET "pll_mod/CLKOS" 275.000000 MHz (0 errors)
+            0 items scored, 0 timing errors detected.
+
+FREQUENCY PORT "clk" 25.000000 MHz (0 errors)
+            0 items scored, 0 timing errors detected.
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Preference: FREQUENCY NET "clk_c" 25.000000 MHz ;
+            50 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Passed: The following path meets requirements by 0.902ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[3]  (from clk_c +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[9]  (to clk_c +)
+
+   Delay:               0.889ns  (51.5% logic, 48.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.889ns physical path delay encoding_8b10b_mod/SLICE_44 to encoding_8b10b_mod/SLICE_47 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+      0.000ns skew requirement (totaling -0.013ns) by 0.902ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_44 to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C10D.CLK to     R10C10D.Q0 encoding_8b10b_mod/SLICE_44 (from clk_c)
+ROUTE         1     0.210     R10C10D.Q0 to     R10C10A.A1 encoding_8b10b_mod/encode_r[3]
+CTOOFX_DEL  ---     0.156     R10C10A.A1 to   R10C10A.OFX0 encoding_8b10b_mod/SLICE_447
+ROUTE         1     0.000   R10C10A.OFX0 to    R10C10A.FXB encoding_8b10b_mod/enc_r.encode_r_2256_9_1_f5b
+FXTOOFX_DE  ---     0.068    R10C10A.FXB to   R10C10A.OFX1 encoding_8b10b_mod/SLICE_447
+ROUTE         1     0.221   R10C10A.OFX1 to      R9C12B.C1 encoding_8b10b_mod/encode_r_2256_9
+CTOF_DEL    ---     0.101      R9C12B.C1 to      R9C12B.F1 encoding_8b10b_mod/SLICE_47
+ROUTE         1     0.000      R9C12B.F1 to     R9C12B.DI1 encoding_8b10b_mod/encode_r_2[9] (to clk_c)
+                  --------
+                    0.889   (51.5% logic, 48.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_44:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     0.770       34.PADDI to    R10C10D.CLK clk_c
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     0.770       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+Passed: The following path meets requirements by 1.699ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/count_r[3]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               1.003ns  (59.2% logic, 40.8% route), 6 logic levels.
+
+ Constraint Details:
+
+      1.003ns physical path delay deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -0.696ns) by 1.699ns
+
+ Physical Path Details:
+
+      Data path deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C16C.CLK to     R10C16C.Q1 deserializer_mod/SLICE_7 (from bit_clk)
+ROUTE         7     0.274     R10C16C.Q1 to      R8C10B.D1 deserializer_mod/count_r[3]
+CTOOFX_DEL  ---     0.156      R8C10B.D1 to    R8C10B.OFX0 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX0 to     R8C10A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10A.FXA to    R8C10A.OFX1 encoding_8b10b_mod/SLICE_455
+ROUTE         1     0.000    R8C10A.OFX1 to     R8C10B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10B.FXB to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    1.003   (59.2% logic, 40.8% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C16C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 1.811ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_r[1]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               1.115ns  (53.3% logic, 46.7% route), 6 logic levels.
+
+ Constraint Details:
+
+      1.115ns physical path delay serializer_mod/SLICE_53 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -0.696ns) by 1.811ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_53 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C13C.CLK to     R10C13C.Q1 serializer_mod/SLICE_53 (from bit_clk)
+ROUTE         8     0.386     R10C13C.Q1 to      R8C10D.D1 serializer_mod/count_r[1]
+CTOOFX_DEL  ---     0.156      R8C10D.D1 to    R8C10D.OFX0 SLICE_452
+ROUTE         1     0.000    R8C10D.OFX0 to     R8C10C.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10C.FXA to    R8C10C.OFX1 encoding_8b10b_mod/SLICE_453
+ROUTE         1     0.000    R8C10C.OFX1 to     R8C10B.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10B.FXA to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    1.115   (53.3% logic, 46.7% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 1.859ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              deserializer_mod/count_r[2]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               1.163ns  (51.1% logic, 48.9% route), 6 logic levels.
+
+ Constraint Details:
+
+      1.163ns physical path delay deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -0.696ns) by 1.859ns
+
+ Physical Path Details:
+
+      Data path deserializer_mod/SLICE_7 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C16C.CLK to     R10C16C.Q0 deserializer_mod/SLICE_7 (from bit_clk)
+ROUTE         7     0.434     R10C16C.Q0 to      R8C10B.A1 deserializer_mod/count_r[2]
+CTOOFX_DEL  ---     0.156      R8C10B.A1 to    R8C10B.OFX0 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX0 to     R8C10A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10A.FXA to    R8C10A.OFX1 encoding_8b10b_mod/SLICE_455
+ROUTE         1     0.000    R8C10A.OFX1 to     R8C10B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10B.FXB to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    1.163   (51.1% logic, 48.9% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to deserializer_mod/SLICE_7:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C16C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 1.867ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_r[2]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               1.171ns  (50.7% logic, 49.3% route), 6 logic levels.
+
+ Constraint Details:
+
+      1.171ns physical path delay serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -0.696ns) by 1.867ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C13B.CLK to     R10C13B.Q0 serializer_mod/SLICE_54 (from bit_clk)
+ROUTE         6     0.442     R10C13B.Q0 to      R8C10D.B1 serializer_mod/count_r[2]
+CTOOFX_DEL  ---     0.156      R8C10D.B1 to    R8C10D.OFX0 SLICE_452
+ROUTE         1     0.000    R8C10D.OFX0 to     R8C10C.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10C.FXA to    R8C10C.OFX1 encoding_8b10b_mod/SLICE_453
+ROUTE         1     0.000    R8C10C.OFX1 to     R8C10B.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10B.FXA to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    1.171   (50.7% logic, 49.3% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 1.893ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_r[3]  (from bit_clk +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               1.197ns  (49.6% logic, 50.4% route), 6 logic levels.
+
+ Constraint Details:
+
+      1.197ns physical path delay serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -0.696ns) by 1.893ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_54 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C13B.CLK to     R10C13B.Q1 serializer_mod/SLICE_54 (from bit_clk)
+ROUTE         6     0.468     R10C13B.Q1 to      R8C10D.C1 serializer_mod/count_r[3]
+CTOOFX_DEL  ---     0.156      R8C10D.C1 to    R8C10D.OFX0 SLICE_452
+ROUTE         1     0.000    R8C10D.OFX0 to     R8C10C.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10C.FXA to    R8C10C.OFX1 encoding_8b10b_mod/SLICE_453
+ROUTE         1     0.000    R8C10C.OFX1 to     R8C10B.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10B.FXA to    R8C10B.OFX1 SLICE_454
+ROUTE         1     0.000    R8C10B.OFX1 to     R8C10D.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_1_f5b
+FXTOOFX_DE  ---     0.068     R8C10D.FXB to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    1.197   (49.6% logic, 50.4% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 3.456ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_f[3]  (from bit_clk -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               0.946ns  (62.8% logic, 37.2% route), 6 logic levels.
+
+ Constraint Details:
+
+      0.946ns physical path delay serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+     -1.814ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -2.510ns) by 3.456ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R8C13C.CLK to      R8C13C.Q1 serializer_mod/SLICE_52 (from bit_clk)
+ROUTE         6     0.217      R8C13C.Q1 to      R8C11B.A1 serializer_mod/count_f[3]
+CTOOFX_DEL  ---     0.156      R8C11B.A1 to    R8C11B.OFX0 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX0 to     R8C11A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C11A.FXA to    R8C11A.OFX1 encoding_8b10b_mod/SLICE_451
+ROUTE         1     0.000    R8C11A.OFX1 to     R8C11B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_f5b
+FXTOOFX_DE  ---     0.068     R8C11B.FXB to    R8C11B.OFX1 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX1 to     R8C10D.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10D.FXA to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    0.946   (62.8% logic, 37.2% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_52:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to     R8C13C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 3.462ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_f[2]  (from bit_clk -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               0.952ns  (62.4% logic, 37.6% route), 6 logic levels.
+
+ Constraint Details:
+
+      0.952ns physical path delay serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+     -1.814ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -2.510ns) by 3.462ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_52 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R8C13C.CLK to      R8C13C.Q0 serializer_mod/SLICE_52 (from bit_clk)
+ROUTE         6     0.223      R8C13C.Q0 to      R8C11B.D1 serializer_mod/count_f[2]
+CTOOFX_DEL  ---     0.156      R8C11B.D1 to    R8C11B.OFX0 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX0 to     R8C11A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C11A.FXA to    R8C11A.OFX1 encoding_8b10b_mod/SLICE_451
+ROUTE         1     0.000    R8C11A.OFX1 to     R8C11B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_f5b
+FXTOOFX_DE  ---     0.068     R8C11B.FXB to    R8C11B.OFX1 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX1 to     R8C10D.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10D.FXA to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    0.952   (62.4% logic, 37.6% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_52:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to     R8C13C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 3.463ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              serializer_mod/count_f[1]  (from bit_clk -)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_r[10]  (to clk_c +)
+
+   Delay:               0.953ns  (62.3% logic, 37.7% route), 6 logic levels.
+
+ Constraint Details:
+
+      0.953ns physical path delay serializer_mod/SLICE_51 to encoding_8b10b_mod/SLICE_48 meets
+     -0.013ns DIN_HLD and
+     -1.814ns delay constraint less
+      0.998ns skew less
+     -0.315ns feedback compensation requirement (totaling -2.510ns) by 3.463ns
+
+ Physical Path Details:
+
+      Data path serializer_mod/SLICE_51 to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C11C.CLK to     R10C11C.Q1 serializer_mod/SLICE_51 (from bit_clk)
+ROUTE         8     0.224     R10C11C.Q1 to      R8C11B.C1 serializer_mod/count_f[1]
+CTOOFX_DEL  ---     0.156      R8C11B.C1 to    R8C11B.OFX0 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX0 to     R8C11A.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_0_f5a
+FXTOOFX_DE  ---     0.068     R8C11A.FXA to    R8C11A.OFX1 encoding_8b10b_mod/SLICE_451
+ROUTE         1     0.000    R8C11A.OFX1 to     R8C11B.FXB encoding_8b10b_mod/enc_r.encode_r_20_10_0_1_f5b
+FXTOOFX_DE  ---     0.068     R8C11B.FXB to    R8C11B.OFX1 SLICE_450
+ROUTE         1     0.000    R8C11B.OFX1 to     R8C10D.FXA encoding_8b10b_mod/enc_r.encode_r_20_10_0_f5a
+FXTOOFX_DE  ---     0.068     R8C10D.FXA to    R8C10D.OFX1 SLICE_452
+ROUTE         1     0.135    R8C10D.OFX1 to      R8C12D.D0 encoding_8b10b_mod/encode_r_20_10
+CTOF_DEL    ---     0.101      R8C12D.D0 to      R8C12D.F0 encoding_8b10b_mod/SLICE_48
+ROUTE         1     0.000      R8C12D.F0 to     R8C12D.DI0 encoding_8b10b_mod/encode_r_2[10] (to clk_c)
+                  --------
+                    0.953   (62.3% logic, 37.7% route), 6 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to serializer_mod/SLICE_51:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C11C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Source Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 20.386ns (weighted slack = 40.772ns)
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[10]  (from clk_c +)
+   Destination:    FF         Data in        encoding_8b10b_mod/encode_f[10]  (to clk_c -)
+
+   Delay:               0.373ns  (62.7% logic, 37.3% route), 2 logic levels.
+
+ Constraint Details:
+
+      0.373ns physical path delay encoding_8b10b_mod/SLICE_48 to encoding_8b10b_mod/SLICE_41 meets
+     -0.013ns DIN_HLD and
+    -20.000ns delay constraint less
+      0.000ns skew requirement (totaling -20.013ns) by 20.386ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_48 to encoding_8b10b_mod/SLICE_41:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R8C12D.CLK to      R8C12D.Q0 encoding_8b10b_mod/SLICE_48 (from clk_c)
+ROUTE        11     0.139      R8C12D.Q0 to      R8C13B.D0 encoding_8b10b_mod/encode_r[10]
+CTOF_DEL    ---     0.101      R8C13B.D0 to      R8C13B.F0 encoding_8b10b_mod/SLICE_41
+ROUTE         1     0.000      R8C13B.F0 to     R8C13B.DI0 encoding_8b10b_mod/encode_f_1[10] (to clk_c)
+                  --------
+                    0.373   (62.7% logic, 37.3% route), 2 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_48:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     0.770       34.PADDI to     R8C12D.CLK clk_c
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 0 logic levels.
+
+      Destination Clock Path clk to encoding_8b10b_mod/SLICE_41:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        27     0.770       34.PADDI to     R8C13B.CLK clk_c
+                  --------
+                    0.770   (0.0% logic, 100.0% route), 0 logic levels.
+
+
+================================================================================
+Preference: FREQUENCY NET "bit_clk" 275.000000 MHz ;
+            548 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Passed: The following path meets requirements by 0.177ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_f[9]  (from clk_c -)
+   Destination:    FF         Data in        serializer_mod/op_f  (to bit_clk -)
+
+   Delay:               0.847ns  (51.5% logic, 48.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.847ns physical path delay encoding_8b10b_mod/SLICE_40 to serializer_mod/SLICE_55 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.670ns) by 0.177ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_40 to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R9C11A.CLK to      R9C11A.Q1 encoding_8b10b_mod/SLICE_40 (from clk_c)
+ROUTE         1     0.138      R9C11A.Q1 to      R9C13C.C1 encoding_8b10b_mod/encode_f[9]
+CTOF_DEL    ---     0.101      R9C13C.C1 to      R9C13C.F1 SLICE_501
+ROUTE         3     0.217      R9C13C.F1 to      R9C12D.A1 data_encoded[9]
+CTOF_DEL    ---     0.101      R9C12D.A1 to      R9C12D.F1 serializer_mod/SLICE_55
+ROUTE         1     0.056      R9C12D.F1 to      R9C12D.C0 serializer_mod/N_32
+CTOF_DEL    ---     0.101      R9C12D.C0 to      R9C12D.F0 serializer_mod/SLICE_55
+ROUTE         1     0.000      R9C12D.F0 to     R9C12D.DI0 serializer_mod/op_f_1 (to bit_clk)
+                  --------
+                    0.847   (51.5% logic, 48.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_40:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R9C11A.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to     R9C12D.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.177ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[8]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/op_f  (to bit_clk -)
+
+   Delay:               0.847ns  (51.5% logic, 48.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.847ns physical path delay encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_55 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.670ns) by 0.177ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R9C12B.CLK to      R9C12B.Q0 encoding_8b10b_mod/SLICE_47 (from clk_c)
+ROUTE         1     0.210      R9C12B.Q0 to      R9C12C.A1 encoding_8b10b_mod/encode_r[8]
+CTOF_DEL    ---     0.101      R9C12C.A1 to      R9C12C.F1 SLICE_514
+ROUTE         3     0.145      R9C12C.F1 to      R9C12D.B1 data_encoded[8]
+CTOF_DEL    ---     0.101      R9C12D.B1 to      R9C12D.F1 serializer_mod/SLICE_55
+ROUTE         1     0.056      R9C12D.F1 to      R9C12D.C0 serializer_mod/N_32
+CTOF_DEL    ---     0.101      R9C12D.C0 to      R9C12D.F0 serializer_mod/SLICE_55
+ROUTE         1     0.000      R9C12D.F0 to     R9C12D.DI0 serializer_mod/op_f_1 (to bit_clk)
+                  --------
+                    0.847   (51.5% logic, 48.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to     R9C12D.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.190ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_f[8]  (from clk_c -)
+   Destination:    FF         Data in        serializer_mod/op_f  (to bit_clk -)
+
+   Delay:               0.860ns  (50.7% logic, 49.3% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.860ns physical path delay encoding_8b10b_mod/SLICE_40 to serializer_mod/SLICE_55 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.670ns) by 0.190ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_40 to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R9C11A.CLK to      R9C11A.Q0 encoding_8b10b_mod/SLICE_40 (from clk_c)
+ROUTE         1     0.223      R9C11A.Q0 to      R9C12C.B1 encoding_8b10b_mod/encode_f[8]
+CTOF_DEL    ---     0.101      R9C12C.B1 to      R9C12C.F1 SLICE_514
+ROUTE         3     0.145      R9C12C.F1 to      R9C12D.B1 data_encoded[8]
+CTOF_DEL    ---     0.101      R9C12D.B1 to      R9C12D.F1 serializer_mod/SLICE_55
+ROUTE         1     0.056      R9C12D.F1 to      R9C12D.C0 serializer_mod/N_32
+CTOF_DEL    ---     0.101      R9C12D.C0 to      R9C12D.F0 serializer_mod/SLICE_55
+ROUTE         1     0.000      R9C12D.F0 to     R9C12D.DI0 serializer_mod/op_f_1 (to bit_clk)
+                  --------
+                    0.860   (50.7% logic, 49.3% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_40:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R9C11A.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to     R9C12D.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.213ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[6]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_r[3]  (to bit_clk +)
+                   FF                        serializer_mod/count_r[2]
+
+   Delay:               0.839ns  (39.9% logic, 60.1% route), 3 logic levels.
+
+ Constraint Details:
+
+      0.839ns physical path delay encoding_8b10b_mod/SLICE_45 to serializer_mod/SLICE_54 meets
+     -0.057ns LSR_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.626ns) by 0.213ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_45 to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R8C12A.CLK to      R8C12A.Q1 encoding_8b10b_mod/SLICE_45 (from clk_c)
+ROUTE         1     0.218      R8C12A.Q1 to     R10C13D.D1 encoding_8b10b_mod/encode_r[6]
+CTOF_DEL    ---     0.101     R10C13D.D1 to     R10C13D.F1 SLICE_515
+ROUTE         3     0.135     R10C13D.F1 to     R10C13A.D0 data_encoded[6]
+CTOF_DEL    ---     0.101     R10C13A.D0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.151     R10C13A.F0 to    R10C13B.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    0.839   (39.9% logic, 60.1% route), 3 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_45:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12A.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.213ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[6]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_r[1]  (to bit_clk +)
+                   FF                        serializer_mod/count_r[0]
+
+   Delay:               0.839ns  (39.9% logic, 60.1% route), 3 logic levels.
+
+ Constraint Details:
+
+      0.839ns physical path delay encoding_8b10b_mod/SLICE_45 to serializer_mod/SLICE_53 meets
+     -0.057ns LSR_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.626ns) by 0.213ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_45 to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R8C12A.CLK to      R8C12A.Q1 encoding_8b10b_mod/SLICE_45 (from clk_c)
+ROUTE         1     0.218      R8C12A.Q1 to     R10C13D.D1 encoding_8b10b_mod/encode_r[6]
+CTOF_DEL    ---     0.101     R10C13D.D1 to     R10C13D.F1 SLICE_515
+ROUTE         3     0.135     R10C13D.F1 to     R10C13A.D0 data_encoded[6]
+CTOF_DEL    ---     0.101     R10C13A.D0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.151     R10C13A.F0 to    R10C13C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    0.839   (39.9% logic, 60.1% route), 3 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_45:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R8C12A.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.228ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[7]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_r[1]  (to bit_clk +)
+                   FF                        serializer_mod/count_r[0]
+
+   Delay:               0.854ns  (39.2% logic, 60.8% route), 3 logic levels.
+
+ Constraint Details:
+
+      0.854ns physical path delay encoding_8b10b_mod/SLICE_46 to serializer_mod/SLICE_53 meets
+     -0.057ns LSR_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.626ns) by 0.228ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_46 to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R9C13D.CLK to      R9C13D.Q0 encoding_8b10b_mod/SLICE_46 (from clk_c)
+ROUTE         1     0.224      R9C13D.Q0 to     R10C13A.B1 encoding_8b10b_mod/encode_r[7]
+CTOF_DEL    ---     0.101     R10C13A.B1 to     R10C13A.F1 SLICE_499
+ROUTE         3     0.144     R10C13A.F1 to     R10C13A.B0 data_encoded[7]
+CTOF_DEL    ---     0.101     R10C13A.B0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.151     R10C13A.F0 to    R10C13C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    0.854   (39.2% logic, 60.8% route), 3 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_46:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R9C13D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.228ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[7]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_r[3]  (to bit_clk +)
+                   FF                        serializer_mod/count_r[2]
+
+   Delay:               0.854ns  (39.2% logic, 60.8% route), 3 logic levels.
+
+ Constraint Details:
+
+      0.854ns physical path delay encoding_8b10b_mod/SLICE_46 to serializer_mod/SLICE_54 meets
+     -0.057ns LSR_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.626ns) by 0.228ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_46 to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R9C13D.CLK to      R9C13D.Q0 encoding_8b10b_mod/SLICE_46 (from clk_c)
+ROUTE         1     0.224      R9C13D.Q0 to     R10C13A.B1 encoding_8b10b_mod/encode_r[7]
+CTOF_DEL    ---     0.101     R10C13A.B1 to     R10C13A.F1 SLICE_499
+ROUTE         3     0.144     R10C13A.F1 to     R10C13A.B0 data_encoded[7]
+CTOF_DEL    ---     0.101     R10C13A.B0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.151     R10C13A.F0 to    R10C13B.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    0.854   (39.2% logic, 60.8% route), 3 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_46:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R9C13D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.263ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[9]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/op_f  (to bit_clk -)
+
+   Delay:               0.933ns  (46.7% logic, 53.3% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.933ns physical path delay encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_55 meets
+     -0.013ns DIN_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.670ns) by 0.263ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_47 to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133     R9C12B.CLK to      R9C12B.Q1 encoding_8b10b_mod/SLICE_47 (from clk_c)
+ROUTE         1     0.224      R9C12B.Q1 to      R9C13C.B1 encoding_8b10b_mod/encode_r[9]
+CTOF_DEL    ---     0.101      R9C13C.B1 to      R9C13C.F1 SLICE_501
+ROUTE         3     0.217      R9C13C.F1 to      R9C12D.A1 data_encoded[9]
+CTOF_DEL    ---     0.101      R9C12D.A1 to      R9C12D.F1 serializer_mod/SLICE_55
+ROUTE         1     0.056      R9C12D.F1 to      R9C12D.C0 serializer_mod/N_32
+CTOF_DEL    ---     0.101      R9C12D.C0 to      R9C12D.F0 serializer_mod/SLICE_55
+ROUTE         1     0.000      R9C12D.F0 to     R9C12D.DI0 serializer_mod/op_f_1 (to bit_clk)
+                  --------
+                    0.933   (46.7% logic, 53.3% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_47:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to     R9C12B.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_55:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to     R9C12D.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.292ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[4]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_r[3]  (to bit_clk +)
+                   FF                        serializer_mod/count_r[2]
+
+   Delay:               0.918ns  (47.5% logic, 52.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.918ns physical path delay encoding_8b10b_mod/SLICE_44 to serializer_mod/SLICE_54 meets
+     -0.057ns LSR_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.626ns) by 0.292ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_44 to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C10D.CLK to     R10C10D.Q1 encoding_8b10b_mod/SLICE_44 (from clk_c)
+ROUTE         1     0.135     R10C10D.Q1 to     R10C12A.D1 encoding_8b10b_mod/encode_r[4]
+CTOF_DEL    ---     0.101     R10C12A.D1 to     R10C12A.F1 SLICE_516
+ROUTE         3     0.059     R10C12A.F1 to     R10C12B.C0 data_encoded[4]
+CTOF_DEL    ---     0.101     R10C12B.C0 to     R10C12B.F0 SLICE_500
+ROUTE         1     0.137     R10C12B.F0 to     R10C13A.C0 serializer_mod/un1_data_in_5
+CTOF_DEL    ---     0.101     R10C13A.C0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.151     R10C13A.F0 to    R10C13B.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    0.918   (47.5% logic, 52.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_44:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to    R10C10D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_54:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13B.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+Passed: The following path meets requirements by 0.292ns
+
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              encoding_8b10b_mod/encode_r[4]  (from clk_c +)
+   Destination:    FF         Data in        serializer_mod/count_r[1]  (to bit_clk +)
+                   FF                        serializer_mod/count_r[0]
+
+   Delay:               0.918ns  (47.5% logic, 52.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      0.918ns physical path delay encoding_8b10b_mod/SLICE_44 to serializer_mod/SLICE_53 meets
+     -0.057ns LSR_HLD and
+      0.000ns delay constraint less
+     -0.998ns skew less
+      0.315ns feedback compensation requirement (totaling 0.626ns) by 0.292ns
+
+ Physical Path Details:
+
+      Data path encoding_8b10b_mod/SLICE_44 to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.133    R10C10D.CLK to     R10C10D.Q1 encoding_8b10b_mod/SLICE_44 (from clk_c)
+ROUTE         1     0.135     R10C10D.Q1 to     R10C12A.D1 encoding_8b10b_mod/encode_r[4]
+CTOF_DEL    ---     0.101     R10C12A.D1 to     R10C12A.F1 SLICE_516
+ROUTE         3     0.059     R10C12A.F1 to     R10C12B.C0 data_encoded[4]
+CTOF_DEL    ---     0.101     R10C12B.C0 to     R10C12B.F0 SLICE_500
+ROUTE         1     0.137     R10C12B.F0 to     R10C13A.C0 serializer_mod/un1_data_in_5
+CTOF_DEL    ---     0.101     R10C13A.C0 to     R10C13A.F0 SLICE_499
+ROUTE         4     0.151     R10C13A.F0 to    R10C13C.LSR serializer_mod/un1_data_in (to bit_clk)
+                  --------
+                    0.918   (47.5% logic, 52.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      Source Clock Path clk to encoding_8b10b_mod/SLICE_44:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.770       34.PADDI to    R10C10D.CLK clk_c
+                  --------
+                    1.252   (38.5% logic, 61.5% route), 1 logic levels.
+
+      Destination Clock Path clk to serializer_mod/SLICE_53:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+PADI_DEL    ---     0.482         34.PAD to       34.PADDI clk
+ROUTE        27     0.264       34.PADDI to      LPLL.CLKI clk_c
+CLKI2OP_DE  ---     0.909      LPLL.CLKI to     LPLL.CLKOP pll_mod/PLLInst_0
+ROUTE        44     0.595     LPLL.CLKOP to    R10C13C.CLK bit_clk
+                  --------
+                    2.250   (61.8% logic, 38.2% route), 2 logic levels.
+
+      Destination Clock f/b:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+CLKFB2OS_D  ---     0.000     LPLL.CLKFB to     LPLL.CLKOS pll_mod/PLLInst_0
+ROUTE         1     0.315     LPLL.CLKOS to     LPLL.CLKFB pll_mod/CLKOS
+                  --------
+                    0.315   (0.0% logic, 100.0% route), 1 logic levels.
+
+
+================================================================================
+Preference: FREQUENCY NET "pll_mod/CLKOS" 275.000000 MHz ;
+            0 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+================================================================================
+Preference: FREQUENCY PORT "clk" 25.000000 MHz ;
+            0 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+
+Report Summary
+--------------
+----------------------------------------------------------------------------
+Preference(MIN Delays)                  |   Constraint|       Actual|Levels
+----------------------------------------------------------------------------
+                                        |             |             |
+FREQUENCY NET "clk_c" 25.000000 MHz ;   |     0.000 ns|     0.902 ns|   4  
+                                        |             |             |
+FREQUENCY NET "bit_clk" 275.000000 MHz  |             |             |
+;                                       |     0.000 ns|     0.177 ns|   4  
+                                        |             |             |
+FREQUENCY NET "pll_mod/CLKOS"           |             |             |
+275.000000 MHz ;                        |            -|            -|   0  
+                                        |             |             |
+FREQUENCY PORT "clk" 25.000000 MHz ;    |            -|            -|   0  
+                                        |             |             |
+----------------------------------------------------------------------------
+
+
+All preferences were met.
+
+
+Clock Domains Analysis
+------------------------
+
+Found 3 clocks:
+
+Clock Domain: pll_mod/CLKOS   Source: pll_mod/PLLInst_0.CLKOS   Loads: 1
+   No transfer within this clock domain is found
+
+Clock Domain: clk_c   Source: clk.PAD   Loads: 27
+   Covered under: FREQUENCY NET "clk_c" 25.000000 MHz ;
+
+   Data transfers from:
+   Clock Domain: bit_clk   Source: pll_mod/PLLInst_0.CLKOP
+      Covered under: FREQUENCY NET "clk_c" 25.000000 MHz ;   Transfers: 8
+
+Clock Domain: bit_clk   Source: pll_mod/PLLInst_0.CLKOP   Loads: 44
+   Covered under: FREQUENCY NET "bit_clk" 275.000000 MHz ;
+
+   Data transfers from:
+   Clock Domain: clk_c   Source: clk.PAD
+      Covered under: FREQUENCY NET "bit_clk" 275.000000 MHz ;   Transfers: 40
+
+
+Timing summary (Hold):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 598 paths, 30 nets, and 606 connections (13.94% coverage)
+
+
+
+Timing summary (Setup and Hold):
+---------------
+
+Timing errors: 462 (setup), 0 (hold)
+Score: 1339184 (setup), 0 (hold)
+Cumulative negative slack: 889900 (889900+0)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
