@@ -72,6 +72,6 @@ begin
 	end process ser_f;
 	
 	data_out <= op_r when bit_clk = '1' else
-				op_f when bit_clk = '0';
+		    op_f when bit_clk = '0';
 
 end arch;
