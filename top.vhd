@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------
 --HIGH SPEED LINK
---top.vhd
+--tb.vhd
 --
 --GSoC 2020
 --
@@ -11,62 +11,63 @@
 
 library IEEE;
 use IEEE.std_logic_1164.ALL;
+use IEEE.numeric_std.ALL;
 
 
-entity top is
-	port (
-		clk          : in std_logic;
-		reset        : in std_logic;
-		prn          : in std_logic_vector(7 downto 0);
-		data_decoded : out std_logic_vector(7 downto 0)
+entity tb is
+	generic (
+		period : time := 40ns;
+		--
+		seed : std_logic_vector (7 downto 0) := "11001010"
 	);
-end top;
- 
+end tb;
 
-architecture arch of top is
 
-	signal bit_clk : std_logic;
+architecture arch of tb is
 
-	signal data_encoded : std_logic_vector(9 downto 0);
-
-	signal ser_data : std_logic;
+	signal clk : std_logic;
+	signal reset : std_logic;
+		
+	signal data_decoded : std_logic_vector(7 downto 0);
 	
-	signal data_out : std_logic_vector(9 downto 0);
-
+	signal prn : std_logic_vector(7 downto 0);
+	
 begin
 
-	pll_mod: entity work.pll
+	top_mod: entity work.top
 		port map (
-			CLKI  => clk,
-			CLKOP => bit_clk
+			clk => clk,
+			reset => reset,
+			data_decoded => data_decoded,
+			prn => prn
 		);
+	   
+	prng: process (clk)
+	begin
+		if rising_edge(clk) or falling_edge(clk) then 
+			if reset = '1' then
+				prn <= seed;
+			else
+				prn <= prn(6 downto 0) & (prn(1) xor prn(2) xor prn(3) xor prn(7));
+			end if;
+		end if;
+	end process prng;
+	
+	in_clk : process 
+	begin
+		clk <= '0';
+		wait for period/2;
 
-	encoding_8b10b_mod: entity work.encoding_8b10b(arch)
-		port map(
-			clk          => clk,
-			reset        => reset,
-			data_in      => prn,
-			data_encoded => data_encoded
-		);
+		clk <= '1';
+		wait for period/2;
+	end process in_clk;
+	
+	test : process
+	begin
+			reset <= '1';
+			wait for 2.09us;
+			reset <= '0';
+			wait for 6us;
+	end process test;
 
-	serializer_mod: entity work.serializer(arch)
-		port map(
-			bit_clk  => bit_clk, 
-			data_in  => data_encoded,
-			data_out => ser_data
-		);	
- 
-	deserializer_mod: entity work.deserializer(arch)
-		port map(
-			bit_clk  => bit_clk, 
-			data_in  => ser_data,
-			data_out =>  data_out
-		);
-
-	decoding_8b10b_mod: entity work.decoding_8b10b(arch)
-		port map(
-			data_in => data_out,
-			output  => data_decoded
-		);
-		
 end arch;
