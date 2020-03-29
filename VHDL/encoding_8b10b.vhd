@@ -594,6 +594,6 @@ begin
 	end process enc_f;
 	
 	data_encoded <= encode_r(9 downto 0) when clk = '1' else
-				    encode_f (9 downto 0) when clk = '0';
+			encode_f (9 downto 0) when clk = '0';
 
 end arch;
