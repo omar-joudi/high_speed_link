@@ -32,11 +32,8 @@ architecture arch of serializer is
 	signal op_f :std_logic;
 
 begin
-
-	data_out <= op_r when bit_clk = '1' else
-				op_f when bit_clk = '0';
 	
-	serialize : process (bit_clk)
+	ser_r : process (bit_clk)
 	begin
 		if rising_edge(bit_clk) then
 			if data_in = "0000000000" then
@@ -53,9 +50,9 @@ begin
 				op_r <= data_in(count_f);
 			end if;
 		end if;
-	end process serialize;
+	end process ser_r;
 	
-	serialize2 : process (bit_clk)
+	ser_f : process (bit_clk)
 	begin
 		if falling_edge(bit_clk) then
 			if data_in = "0000000000" then
@@ -72,6 +69,9 @@ begin
 				op_f <= data_in(count_r);
 			end if;
 		end if;
-	end process serialize2;
+	end process ser_f;
+	
+	data_out <= op_r when bit_clk = '1' else
+				op_f when bit_clk = '0';
 
 end arch;
