@@ -64,10 +64,10 @@ begin
 	
 	test : process
 	begin
-			reset <= '1';
-			wait for 2.09us;
-			reset <= '0';
-			wait for 6us;
+		reset <= '1';
+		wait for 2.09us;
+		reset <= '0';
+		wait for 6us;
 	end process test;
 
 end arch;
