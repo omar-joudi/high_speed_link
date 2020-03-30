@@ -28,11 +28,11 @@ end deserializer;
 
 architecture arch of deserializer is
 
-	signal reg_r   : std_logic_vector (9 downto 0);
-	signal reg_f   : std_logic_vector (9 downto 0);
+	signal reg_r   : std_logic_vector(9 downto 0);
+	signal reg_f   : std_logic_vector(9 downto 0);
 	
-	signal op_r   : std_logic_vector (9 downto 0);
-	signal op_f   : std_logic_vector (9 downto 0);
+	signal op_r   : std_logic_vector(9 downto 0);
+	signal op_f   : std_logic_vector(9 downto 0);
 	
 	signal count_r : integer range 0 to 10;
 	signal count_f : integer range 0 to 10;
