@@ -29,13 +29,13 @@ end encoding_8b10b;
 
 architecture arch of encoding_8b10b is
 
-	signal encode_r : std_logic_vector (10 downto 0);
-	signal encode_f : std_logic_vector (10 downto 0);
+	signal encode_r : std_logic_vector(10 downto 0);
+	signal encode_f : std_logic_vector(10 downto 0);
 
 	signal linked_r : std_logic;
 	signal linked_f : std_logic;
 
-	type mapping_table is array (0 to 511) of std_logic_vector (10 downto 0); 
+	type mapping_table is array(0 to 511) of std_logic_vector (10 downto 0); 
 	
 	constant table : mapping_table:=
 		(--RD abcdei fghj	
