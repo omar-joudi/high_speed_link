@@ -25,8 +25,8 @@ end serializer;
 
 architecture arch of serializer is
 
-	signal count_r : integer 	range 0 to 10;
-	signal count_f : integer 	range 0 to 10;
+	signal count_r : integer range 0 to 10;
+	signal count_f : integer range 0 to 10;
 	
 	signal op_r :std_logic;
 	signal op_f :std_logic;
