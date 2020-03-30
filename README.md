@@ -6,4 +6,4 @@
 - Reset signal is only connected to the transmitter.
 - The design is tested on two FPGAs:
 - Lattice MachXO2 (LCMXO2-1200HC-6TG100C)
-- Xilinx Zynq (LCMXO2-1200HC-6TG100C)
+- Xilinx Zynq (xc7z020clg400-1)
