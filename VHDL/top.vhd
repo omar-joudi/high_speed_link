@@ -27,7 +27,7 @@ architecture arch of top is
 
 	signal bit_clk : std_logic;
 
-	signal data_encoded : std_logic_vector(9 downto 0);
+	signal encoded : std_logic_vector(9 downto 0);
 
 	signal ser_data : std_logic;
 	
@@ -46,18 +46,20 @@ begin
 			clk          => clk,
 			reset        => reset,
 			data_in      => prn,
-			data_encoded => data_encoded
+			encoded => encoded
 		);
 
 	serializer_mod: entity work.serializer(arch)
 		port map(
+			clk => clk,
 			bit_clk  => bit_clk, 
-			data_in  => data_encoded,
+			data_in  => encoded,
 			data_out => ser_data
 		);	
  
 	deserializer_mod: entity work.deserializer(arch)
 		port map(
+			clk => clk,
 			bit_clk  => bit_clk, 
 			data_in  => ser_data,
 			data_out =>  data_out
