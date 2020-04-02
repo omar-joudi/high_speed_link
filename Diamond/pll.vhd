@@ -91,9 +91,9 @@ architecture Structure of pll is
     attribute FREQUENCY_PIN_CLKI : string; 
     attribute ICP_CURRENT : string; 
     attribute LPF_RESISTOR : string; 
-    attribute FREQUENCY_PIN_CLKOS of PLLInst_0 : label is "275.000000";
-    attribute FREQUENCY_PIN_CLKOP of PLLInst_0 : label is "275.000000";
-    attribute FREQUENCY_PIN_CLKI of PLLInst_0 : label is "25.000000";
+    attribute FREQUENCY_PIN_CLKOS of PLLInst_0 : label is "240.000000";
+    attribute FREQUENCY_PIN_CLKOP of PLLInst_0 : label is "240.000000";
+    attribute FREQUENCY_PIN_CLKI of PLLInst_0 : label is "24.000000";
     attribute ICP_CURRENT of PLLInst_0 : label is "8";
     attribute LPF_RESISTOR of PLLInst_0 : label is "8";
     attribute syn_keep : boolean;
