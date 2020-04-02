@@ -17,7 +17,7 @@ use IEEE.numeric_std.ALL;
 entity decoding_8b10b is
 	port (
 		data_in : in std_logic_vector(9 downto 0);
-		output  : out std_logic_vector(7 downto 0)
+		op      : out std_logic_vector(7 downto 0)
 	);
 end decoding_8b10b;
 
