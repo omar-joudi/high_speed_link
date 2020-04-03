@@ -7,6 +7,6 @@
 - Reset signal is only connected to the transmitter.
 - The design is simulated on two FPGAs:
   - Lattice MachXO2 (LCMXO2-1200HC-6TG100C)
-    - Can work up to more than 500 MHz (240x2).
+    - Can work up to more than 500 MHz (250x2).
   - Xilinx Zynq (xc7z020clg400-1)
     - Still have some timing violations.
