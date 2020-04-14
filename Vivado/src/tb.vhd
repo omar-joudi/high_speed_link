@@ -36,10 +36,10 @@ begin
 
 	top_mod: entity work.top
 		port map (
-			clk => clk,
-			reset => reset,
+			clk          => clk,
+			reset        => reset,
 			data_decoded => data_decoded,
-			prn => prn
+			prn          => prn
 		);
 	   
 	prng: process (clk)
@@ -62,12 +62,12 @@ begin
 		wait for period/2;
 	end process in_clk;
 	
-	test : process
+	reset_1 : process
 	begin
 		reset <= '1';
 		wait for 2.44us;
 		reset <= '0';
 		wait for 6us;
-	end process test;
+	end process reset_1;
 
 end arch;
