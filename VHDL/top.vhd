@@ -46,7 +46,7 @@ begin
 			clk          => clk,
 			reset        => reset,
 			data_in      => prn,
-			encoded => encoded
+			data_encoded => encoded
 		);
 
 	serializer_mod: entity work.serializer(arch)
