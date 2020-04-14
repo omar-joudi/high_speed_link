@@ -51,7 +51,7 @@ begin
 
 	serializer_mod: entity work.serializer(arch)
 		port map(
-			clk => clk,
+			clk      => clk,
 			bit_clk  => bit_clk, 
 			data_in  => encoded,
 			data_out => ser_data
@@ -59,7 +59,7 @@ begin
  
 	deserializer_mod: entity work.deserializer(arch)
 		port map(
-			clk => clk,
+			clk      => clk,
 			bit_clk  => bit_clk, 
 			data_in  => ser_data,
 			data_out =>  data_out
@@ -68,7 +68,7 @@ begin
 	decoding_8b10b_mod: entity work.decoding_8b10b(arch)
 		port map(
 			data_in => data_out,
-			output     => data_decoded
+			output  => data_decoded
 		);
 		
 end arch;
