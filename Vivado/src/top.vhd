@@ -38,7 +38,7 @@ begin
 
 	pll_mod: entity work.pll
 		port map (
-		    CLKI   => clk,
+		    	CLKI   => clk,
 			CLKOP  => bit_clk,
 			CLKOPS => bit_clk_s
 		);
@@ -53,8 +53,8 @@ begin
 
 	serializer_mod: entity work.serializer(arch)
 		port map(
-		    clk      => clk,
-		    reset    => reset,
+		    	clk      => clk,
+		   	reset    => reset,
 			bit_clk  => bit_clk,
 			data_in  => encoded,
 			data_out => ser_data
@@ -62,8 +62,8 @@ begin
  
 	deserializer_mod: entity work.deserializer(arch)
 		port map(
-		    clk       => clk,
-		    reset     => reset,
+		    	clk       => clk,
+		    	reset     => reset,
 			bit_clk   => bit_clk,
 			bit_clk_s => bit_clk_s,  
 			data_in   => ser_data,
