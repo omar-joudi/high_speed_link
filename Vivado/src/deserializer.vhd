@@ -18,17 +18,17 @@ use UNISIM.vcomponents.all;
 
 
 entity deserializer is
-	generic (
-		link : std_logic_vector(9 downto 0) := "0011111000"
-	);
-	port (
-	    clk       : in std_logic;
-	    reset     : in std_logic;
-		bit_clk   : in std_logic;
-		bit_clk_s : in std_logic; 
-		data_in   : in std_logic;
-		data_out  : out std_logic_vector(9 downto 0)
-	);
+    generic (
+        link : std_logic_vector(9 downto 0) := "0011111000"
+    );
+    port (
+        clk       : in std_logic;
+	       reset     : in std_logic;
+        bit_clk   : in std_logic;
+        bit_clk_s : in std_logic; 
+        data_in   : in std_logic;
+        data_out  : out std_logic_vector(9 downto 0)
+    );
 end deserializer;
 
 
@@ -43,7 +43,7 @@ begin
  
     clkn <= not clk;
 
-	master_iserdes : ISERDESE2
+    master_iserdes : ISERDESE2
         generic map (
             DATA_RATE         => "DDR",
             DATA_WIDTH        => 10,
@@ -98,7 +98,7 @@ begin
             IOBDELAY          => "NONE",         
             SERDES_MODE       => "SLAVE"
             )
-      port map (
+        port map (
             BITSLIP       => '0',
             CE1           => '1',
             CE2           => '1',
