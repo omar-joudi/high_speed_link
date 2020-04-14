@@ -16,7 +16,7 @@ use IEEE.numeric_std.ALL;
 
 entity tb is
 	generic (
-		period : time := 41.666ns;
+		period : time := 40.000ns;
 		--
 		seed : std_logic_vector (7 downto 0) := "11001010"
 	);
@@ -64,10 +64,10 @@ begin
 	
 	test : process
 	begin
-			reset <= '1';
-			wait for 2.09us;
-			reset <= '0';
-			wait for 6us;
+		reset <= '1';
+		wait for 2.09us;
+		reset <= '0';
+		wait for 6us;
 	end process test;
 
 end arch;
