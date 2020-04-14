@@ -44,7 +44,7 @@ begin
 	        CLKOUT0_PHASE => 90.0
         )
         port map (
-            	CLKOUT0 => CLKOP,]
+            	CLKOUT0 => CLKOP,
             	CLKFBOUT => CLKFBOUT, -- 1-bit output: Feedback clock
             	LOCKED => LOCKED, -- 1-bit output: LOCK
             	CLKIN1 => CLKI, -- 1-bit input: Input clock\
