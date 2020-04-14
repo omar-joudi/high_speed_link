@@ -1,5 +1,5 @@
 # high_speed_link
-
+**A high speed link between two FPGAs with a common clock (25 MHz) using serdes and coding**
 - A LFSR PRNG is used to generate the input data for testing.
 - An 8b/10b encoding is used to achieve DC balance and bounded disparity.
 - DDR is used for doubling the frequency.
