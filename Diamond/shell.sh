@@ -1,3 +1,4 @@
+#modify the pathes according to your version or installation directory
 export TEMP=/tmp
 export LSC_INI_PATH=""
 export LSC_DIAMOND=true
